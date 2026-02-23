@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- META VERIFIKASI -->
+<meta name="clckd" content="200980a091cea76f76c9abaed314530f" />
+
+<title>Video</title>
+
+<style>
+body{
+    margin:0;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+video{
+    width:100%;
+    max-width:720px;
+    background:#000;
+}
+</style>
+</head>
+
+<body>
+
+<video id="videoPlayer" controls playsinline
+poster="https://cdn.aceimg.com/95e44bfb3.jpg">
+    <source src="https://cdn.videy.co/AthVqXtm1.mp4" type="video/mp4">
+</video>
+
+<script>
+const video = document.getElementById("videoPlayer");
+
+let adOpened = false;
+
+video.addEventListener("play", function () {
+
+    // hanya jalan sekali
+    if (adOpened) return;
+    adOpened = true;
+
+    // pause sebentar supaya interaksi dianggap valid
+    video.pause();
+
+    // buka iklan (direct link)
+    setTimeout(() => {
+        window.open("https://omg10.com/4/10296980", "_blank");
+
+        // lanjutkan video otomatis
+        setTimeout(() => {
+            video.play().catch(() => {});
+        }, 400);
+
+    }, 120);
+
+});
+</script>
+
+</body>
+  </html>
