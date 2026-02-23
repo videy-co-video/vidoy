@@ -3,10 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- META VERIFIKASI -->
 <meta name="clckd" content="200980a091cea76f76c9abaed314530f" />
-
 <title>Video</title>
 
 <style>
@@ -18,7 +15,6 @@ body{
     align-items:center;
     height:100vh;
 }
-
 video{
     width:100%;
     max-width:720px;
@@ -37,30 +33,44 @@ poster="https://cdn.aceimg.com/95e44bfb3.jpg">
 <script>
 const video = document.getElementById("videoPlayer");
 
+// key localStorage untuk tracking user
+const storageKey = "adPlayed";
+const adCooldown = 24 * 60 * 60 * 1000; // 24 jam
+
+// cek localStorage
 let adOpened = false;
+const stored = localStorage.getItem(storageKey);
+
+if (stored) {
+    const adData = JSON.parse(stored);
+    const now = Date.now();
+    if (now - adData.timestamp < adCooldown) {
+        adOpened = true; // belum 24 jam → jangan tampilkan iklan lagi
+    }
+}
 
 video.addEventListener("play", function () {
-
-    // hanya jalan sekali
-    if (adOpened) return;
+    if (adOpened) return; // sudah tampil → skip
     adOpened = true;
 
-    // pause sebentar supaya interaksi dianggap valid
+    // pause sebentar agar browser anggap interaksi valid
     video.pause();
 
-    // buka iklan (direct link)
     setTimeout(() => {
-        window.open("https://omg10.com/4/10296980", "_blank");
+        // buka iklan direct link
+        window.open("https://www.effectivegatecpm.com/pefgs2tn?key=21379ff7165874369a25be941fc6b753", "_blank");
 
         // lanjutkan video otomatis
         setTimeout(() => {
             video.play().catch(() => {});
         }, 400);
 
-    }, 120);
+        // simpan timestamp di localStorage
+        localStorage.setItem(storageKey, JSON.stringify({ timestamp: Date.now() }));
 
+    }, 120);
 });
 </script>
 
 </body>
-  </html>
+</html>
